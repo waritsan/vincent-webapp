@@ -84,14 +84,9 @@ const ChatScreen = () => {
 
   const handleSendMessage = async () => {
     if (messageText.trim() && currentChat) {
-      const userMessage: Message = {
-        id: Date.now(),
-        text: messageText,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        sender: 'user'
-      };
-
-      // Add user message (in a real app, you'd update state properly)
+      // In a real app, you'd add the user message to the chat state
+      console.log('Sending message:', messageText);
+      
       setMessageText('');
       setIsTyping(true);
 
