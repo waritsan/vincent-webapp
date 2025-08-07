@@ -1,11 +1,16 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/assets/*"]
+    "exclude": ["/assets/*", "*.{css,js,woff,woff2,ttf,eot,svg,png,jpg,gif,ico}"]
   },
   "mimeTypes": {
     ".js": "application/javascript",
+    ".mjs": "application/javascript",
     ".css": "text/css",
-    ".html": "text/html"
+    ".json": "application/json",
+    ".svg": "image/svg+xml"
+  },
+  "globalHeaders": {
+    "Access-Control-Allow-Origin": "*"
   }
 }
