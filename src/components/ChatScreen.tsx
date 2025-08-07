@@ -22,8 +22,7 @@ const ChatScreen = () => {
   const [messageText, setMessageText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
-
-  const chats: Chat[] = [
+  const [chats, setChats] = useState<Chat[]>([
     {
       id: 1,
       title: "New Chat",
@@ -37,69 +36,129 @@ const ChatScreen = () => {
           sender: 'assistant'
         }
       ]
-    },
-    {
-      id: 2,
-      title: "React Development Tips",
-      lastMessage: "Great question about hooks!",
-      time: "1h ago",
-      messages: [
-        {
-          id: 1,
-          text: "Can you explain React hooks to me?",
-          time: "1:30 PM",
-          sender: 'user'
-        },
-        {
-          id: 2,
-          text: "React hooks are functions that let you use state and other React features in functional components. The most common ones are useState for managing state and useEffect for side effects.",
-          time: "1:31 PM",
-          sender: 'assistant'
-        }
-      ]
-    },
-    {
-      id: 3,
-      title: "Mobile App Design",
-      lastMessage: "Here are some mobile design principles...",
-      time: "2h ago",
-      messages: [
-        {
-          id: 1,
-          text: "What are the best practices for mobile app design?",
-          time: "12:30 PM",
-          sender: 'user'
-        },
-        {
-          id: 2,
-          text: "Here are some key mobile app design principles:\n\n1. **Mobile-first approach** - Design for the smallest screen first\n2. **Touch-friendly interfaces** - Ensure buttons are at least 44px\n3. **Simple navigation** - Use bottom tabs or hamburger menus\n4. **Fast loading** - Optimize images and minimize animations\n5. **Consistent design** - Follow platform guidelines (iOS/Android)",
-          time: "12:31 PM",
-          sender: 'assistant'
-        }
-      ]
     }
-  ];
+  ]);
 
   const currentChat = chats.find(chat => chat.id === selectedChat);
 
   const handleSendMessage = async () => {
     if (messageText.trim() && currentChat) {
-      // In a real app, you'd add the user message to the chat state
-      console.log('Sending message:', messageText);
+      const userMessage = messageText.trim();
+      const messageId = Date.now();
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      // Add user message to current chat
+      const newUserMessage: Message = {
+        id: messageId,
+        text: userMessage,
+        time: currentTime,
+        sender: 'user'
+      };
+
+      setChats(prevChats => 
+        prevChats.map(chat => 
+          chat.id === selectedChat 
+            ? { 
+                ...chat, 
+                messages: [...chat.messages, newUserMessage],
+                lastMessage: userMessage,
+                time: "now"
+              }
+            : chat
+        )
+      );
       
       setMessageText('');
       setIsTyping(true);
 
-      // Simulate AI typing delay
-      setTimeout(() => {
+      try {
+        // Call your AI assistant API
+        const response = await fetch('https://ai-assistant-function.azurewebsites.net/api/openai-assistant', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ prompt: userMessage })
+        });
+
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Extract the assistant's response from the API response
+        const assistantMessage = data.messages?.[0]?.content?.[0]?.text?.value || 
+                                 "I apologize, but I couldn't process your request right now.";
+
+        // Add assistant response to current chat
+        const newAssistantMessage: Message = {
+          id: messageId + 1,
+          text: assistantMessage,
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          sender: 'assistant'
+        };
+
+        setChats(prevChats => 
+          prevChats.map(chat => 
+            chat.id === selectedChat 
+              ? { 
+                  ...chat, 
+                  messages: [...chat.messages, newAssistantMessage],
+                  lastMessage: assistantMessage.substring(0, 50) + (assistantMessage.length > 50 ? '...' : ''),
+                  time: "now"
+                }
+              : chat
+          )
+        );
+
+      } catch (error) {
+        console.error('Error calling AI assistant:', error);
+        
+        // Add error message
+        const errorMessage: Message = {
+          id: messageId + 1,
+          text: "I'm sorry, but I'm having trouble connecting right now. Please try again later.",
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          sender: 'assistant'
+        };
+
+        setChats(prevChats => 
+          prevChats.map(chat => 
+            chat.id === selectedChat 
+              ? { 
+                  ...chat, 
+                  messages: [...chat.messages, errorMessage],
+                  lastMessage: errorMessage.text,
+                  time: "now"
+                }
+              : chat
+          )
+        );
+      } finally {
         setIsTyping(false);
-        // Add AI response (in a real app, you'd call your AI service)
-      }, 1500);
+      }
     }
   };
 
   const startNewChat = () => {
     const newChatId = Date.now();
+    const newChat: Chat = {
+      id: newChatId,
+      title: "New Chat",
+      lastMessage: "How can I help you today?",
+      time: "now",
+      messages: [
+        {
+          id: 1,
+          text: "Hello! I'm your AI assistant. How can I help you today?",
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          sender: 'assistant'
+        }
+      ]
+    };
+    
+    setChats(prevChats => [newChat, ...prevChats]);
     setSelectedChat(newChatId);
     setShowSidebar(false);
   };
