@@ -16,48 +16,48 @@ const NewsFeed = () => {
   const newsItems: NewsItem[] = [
     {
       id: 1,
-      title: "Revolutionary AI Breakthrough Changes Everything",
-      summary: "Scientists have developed a new AI system that can understand and generate human-like responses with unprecedented accuracy.",
-      author: "Sarah Johnson",
+      title: "ลงทะเบียนรับเงินเยียวยาผู้ประสบภัยน้ำท่วม",
+      summary: "ประกันสังคมเปิดให้ลงทะเบียนเริ่มตั้งแต่วันนี้เื่อรับเงินเยียวยส 20,000 บาท.",
+      author: "สำนักงานประกันสังคม",
       time: "2 hours ago",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop",
+      image: "https://images.unsplash.com/photo-1579208570378-8c970854bc23?w=400&h=200&fit=crop",
       likes: 124,
       comments: 32,
-      category: "Technology"
+      category: "เงินเยียวยา"
     },
     {
       id: 2,
-      title: "Climate Change: New Solutions Emerge",
-      summary: "Innovative green technologies are showing promising results in reducing carbon emissions worldwide.",
-      author: "Mike Chen",
-      time: "4 hours ago",
-      image: "https://images.unsplash.com/photo-1569163139394-de4e4f43e4e3?w=400&h=200&fit=crop",
-      likes: 89,
-      comments: 15,
-      category: "Environment"
+      title: "ยื่นภาษีครึ่งปีนิติบุคคล ภ.ง.ด.51",
+      summary: "เงินได้นิติบุคคลสำหรับครึ่งรอบระยะเวลาบัญชีโดยบริษัทหรือ ห้างหุ้นส่วนนิติบุคคลต้องยื่นแบบภ.ง.ด.51เพื่อรายงานรายได้และคำนวณภาษีที่คาดว่าจะต้องจ่ายของครึ่งรอบระยะเวลาบัญชี",
+      author: "กรมสรรพากร",
+      time: "3 hours ago",
+      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=200&fit=crop",
+      likes: 178,
+      comments: 43,
+      category: "ลดหย่อนภาษี"
     },
     {
       id: 3,
-      title: "Space Exploration Reaches New Milestone",
-      summary: "NASA's latest mission reveals fascinating discoveries about potential life on distant planets.",
-      author: "Dr. Lisa Park",
-      time: "6 hours ago",
-      image: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=400&h=200&fit=crop",
-      likes: 256,
-      comments: 67,
-      category: "Science"
+      title: "โครงการสินเชื่อที่อยู่อาศัยฯ",
+      summary: "ปัจจุบันโครงการสินเชื่อที่อยู่อาศัยฯ ธนาคารอยู่ระหว่างการพิจารณาอนุมัติสินเชื่อ ทั้งนี้ หากคิวที่อยู่ระหว่างการพิจารณาไม่ผ่านการอนุมัติของธนาคาร สำนักงานประกันสังคมจะเรียกคิวสำรองเพิ่มเติมในระยะถัดไป",
+      author: "สำนักงานประกันสังคม",
+      time: "4 hours ago",
+      image: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=400&h=200&fit=crop",
+      likes: 89,
+      comments: 15,
+      category: "สินเชื่อ"
     },
     {
       id: 4,
-      title: "Health Tech Revolution in Progress",
-      summary: "New wearable devices are transforming how we monitor and maintain our health in real-time.",
-      author: "Alex Rodriguez",
-      time: "8 hours ago",
-      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=200&fit=crop",
-      likes: 178,
-      comments: 43,
-      category: "Health"
-    }
+      title: "โครงการสินเชื่อเพื่อส่งเสริมการจ้างงาน",
+      summary: "สถานประกอบการที่สนใจเข้าร่วมโครงการสินเชื่อเพื่อส่งเสริมการจ้างงาน ระยะที่ 3 (พ.ศ. 2568 – 2569) สามารถขอรับหนังสือรับรองเพื่อประกอบการขอสินเชื่อ ได้ตั้งแต่วันที่ 3 กรกฎาคม 2568 เป็นต้นไป",
+      author: "สำนักงานประกันสังคม",
+      time: "6 hours ago",
+      image: "https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?w=400&h=200&fit=crop",
+      likes: 256,
+      comments: 67,
+      category: "สินเชื่อ"
+    },
   ];
 
   return (
@@ -65,7 +65,7 @@ const NewsFeed = () => {
       {/* Header */}
       <div className="bg-white px-4 py-3 border-b border-gray-200 sticky top-0 z-10">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-900">News Feed</h1>
+          <h1 className="text-xl font-bold text-gray-900">Project Vincent</h1>
           <div className="flex items-center gap-3">
             <button className="p-2 rounded-full hover:bg-gray-100">
               <Search size={20} className="text-gray-600" />
