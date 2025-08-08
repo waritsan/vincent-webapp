@@ -22,7 +22,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="h-screen bg-gray-50 flex flex-col">
       {/* Main Content Area */}
       <div className="flex-1 overflow-hidden">
         {renderActiveScreen()}

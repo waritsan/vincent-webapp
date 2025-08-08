@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Send, Plus, Menu, User } from 'lucide-react';
 
 interface Message {
@@ -22,6 +22,7 @@ const ChatScreen = () => {
   const [messageText, setMessageText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
   const [chats, setChats] = useState<Chat[]>([
     {
       id: 1,
@@ -40,6 +41,15 @@ const ChatScreen = () => {
   ]);
 
   const currentChat = chats.find(chat => chat.id === selectedChat);
+
+  // Auto-scroll to bottom when messages change
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chats, isTyping]);
 
   const handleSendMessage = async () => {
     if (messageText.trim() && currentChat) {
@@ -165,7 +175,7 @@ const ChatScreen = () => {
 
   if (!selectedChat || !currentChat) {
     return (
-      <div className="flex flex-col h-full bg-white">
+      <div className="h-full flex flex-col bg-white">
         <div className="flex-1 flex items-center justify-center p-8">
           <div className="text-center">
             <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -186,9 +196,9 @@ const ChatScreen = () => {
   }
 
   return (
-    <div className="flex flex-col h-full bg-white relative">
+    <div className="h-full flex flex-col bg-white relative">
       {/* Header */}
-      <div className="bg-white px-4 py-3 border-b border-gray-200 sticky top-0 z-10">
+      <div className="bg-white px-4 py-3 border-b border-gray-200 flex-shrink-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button 
@@ -241,8 +251,8 @@ const ChatScreen = () => {
       )}
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 pb-20">
-        <div className="max-w-3xl mx-auto space-y-6">
+      <div className="flex-1 overflow-y-auto p-4 min-h-0 pb-24">
+        <div className="max-w-3xl mx-auto space-y-6 pb-4">
           {currentChat.messages.map((message) => (
             <div key={message.id} className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
               {message.sender === 'assistant' && (
@@ -287,11 +297,13 @@ const ChatScreen = () => {
               </div>
             </div>
           )}
+          {/* Invisible element to scroll to */}
+          <div ref={messagesEndRef} />
         </div>
       </div>
 
       {/* Message Input */}
-      <div className="bg-white border-t border-gray-200 p-4">
+      <div className="bg-white border-t border-gray-200 p-4 flex-shrink-0 mb-16">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-end gap-3">
             <div className="flex-1 relative">
@@ -318,7 +330,7 @@ const ChatScreen = () => {
             <button
               onClick={handleSendMessage}
               disabled={!messageText.trim()}
-              className="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
             >
               <Send size={20} />
             </button>
