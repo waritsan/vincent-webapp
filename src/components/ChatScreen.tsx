@@ -27,12 +27,12 @@ const ChatScreen = () => {
     {
       id: 1,
       title: "New Chat",
-      lastMessage: "How can I help you today?",
+      lastMessage: "ให้ดิฉันช่วยอะไรคุณได้บ้างคะ?",
       time: "now",
       messages: [
         {
           id: 1,
-          text: "Hello! I'm your AI assistant. How can I help you today?",
+          text: "สวัสดีค่ะ ฉันคือเลขา AI ส่วนตัวของคุณ ยินดีรับใช้ค่ะ",
           time: "2:30 PM",
           sender: 'assistant'
         }
@@ -156,12 +156,12 @@ const ChatScreen = () => {
     const newChat: Chat = {
       id: newChatId,
       title: "New Chat",
-      lastMessage: "How can I help you today?",
+      lastMessage: "ให้ดิฉันช่วยอะไรคุณได้บ้างคะ?",
       time: "now",
       messages: [
         {
           id: 1,
-          text: "Hello! I'm your AI assistant. How can I help you today?",
+          text: "สวัสดีค่ะ ฉันคือเลขา AI ส่วนตัวของคุณ ยินดีรับใช้ค่ะ",
           time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           sender: 'assistant'
         }
@@ -310,7 +310,7 @@ const ChatScreen = () => {
               <textarea
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
-                placeholder="Message AI assistant..."
+                placeholder="คุยกับเลขา AI..."
                 className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none max-h-32 min-h-[48px]"
                 rows={1}
                 onKeyPress={(e) => {
@@ -336,7 +336,7 @@ const ChatScreen = () => {
             </button>
           </div>
           <p className="text-xs text-gray-500 mt-2 text-center">
-            AI can make mistakes. Consider checking important information.
+            AI สามารถทำผิดพลาดได้ โปรดตรวจสอบข้อมูลที่สำคัญ
           </p>
         </div>
       </div>

@@ -67,3 +67,5 @@ export default tseslint.config([
   },
 ])
 ```
+## Frequently used commands
+npx swa deploy --env production
