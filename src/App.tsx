@@ -19,8 +19,8 @@ function App() {
               </button>
             </div>
             <div className="flex items-center gap-x-3">
-              <img className="size-8 shrink-0" src="/vite.svg" alt="Vincent Logo" />
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">Vincent</h1>
+              <img className="size-8 shrink-0" src="/vite.svg" alt="The Globe Logo" />
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">The Globe</h1>
             </div>
             <nav className="flex items-center gap-x-3">
               <button className="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
